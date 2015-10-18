@@ -31,7 +31,8 @@ body {
         height: 60%;
         margin-bottom: 8px; }
       #feed .status .friend .userName {
-        text-align: left; }
+        text-align: left;
+        font-size: .7em; }
     #feed .status .summary {
       width: 80%;
       display: inline-block;

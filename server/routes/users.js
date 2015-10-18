@@ -16,20 +16,14 @@ router.get('/', function(req, res, next) {
     })
 });
 
-router.route('/create')
-    .all(function(req, res, next) {
-        checkAuthentication(req, res);
-    })
-	.get(function(req,res,next) {
-		res.send("Hello! You are on the creating endpoint. Please create an emotion");
-	})
-	.post(function(req,res,next) {
-		var newId = req.user;
-		console.log(req.body);
-		var userEmotion = req.body.data;
-		Status.create({userId: newId, data: userEmotion}).then(function(emotion) {
-			res.send(emotion);
-		});
-	});
+router.post('/create', function(req, res, next) {
+    checkAuthentication(req, res);
+    var newId = req.user;
+    console.log(req.body);
+    var userEmotion = req.body.data;
+    Status.create({userId: newId, data: userEmotion}).then(function(emotion) {
+        res.send(emotion);
+    });
+});
 
 module.exports = router;

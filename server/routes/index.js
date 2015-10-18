@@ -53,7 +53,7 @@ function addNewUser(FB, profile) {
     var curUserName = profile.displayName;
     var curUserId = profile.id;
 
-    FB.api('/me/?fields=picture', function(res) {
+    FB.api('/me/?fields=picture&width=200&height=200', function(res) {
         // Get the user profile picture
         console.log(res.picture.data.url);
         var curUrl = res.picture.data.url;

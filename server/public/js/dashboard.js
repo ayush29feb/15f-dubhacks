@@ -130,9 +130,18 @@ var Post = React.createClass({
 
     getInitialState: function getInitialState() {
         var emotionChoices = emotionMap.map(function (emotion) {
-            return { value: 0 };
+            return 1;
         });
         return { emotionChoices: emotionChoices };
+    },
+    onClick: function onClick(emotionIndex, value) {
+        this.state.emotionChoices[emotionIndex] = value;
+        this.setState({ emotionChoices: this.state.emotionChoices });
+    },
+    submit: function submit() {
+        var result = emotionMap.map((function (emotion, index) {
+            return { emotion: emotion.emotion, value: this.state.emotionChoices[index] };
+        }).bind(this));
     },
     render: function render() {
         var emotionNodes = emotionMap.map((function (emotion, index) {
@@ -144,7 +153,7 @@ var Post = React.createClass({
                 if (this.state.emotionChoices[index] == i) {
                     style.border = "1px solid white";
                 }
-                colorBoxes.push(React.createElement("div", { key: i, style: style, className: "box" }));
+                colorBoxes.push(React.createElement("div", { key: i, style: style, onClick: this.onClick.bind(this, index, i), className: "box" }));
             }
             return React.createElement(
                 "div",
@@ -168,7 +177,7 @@ var Post = React.createClass({
             emotionNodes,
             React.createElement(
                 "button",
-                null,
+                { onClick: this.submit },
                 "post"
             )
         );

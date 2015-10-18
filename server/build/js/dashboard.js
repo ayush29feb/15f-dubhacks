@@ -79,9 +79,18 @@ var Omnibox = React.createClass({
 var Post = React.createClass({
     getInitialState: function() {
         var emotionChoices = emotionMap.map(function(emotion) {
-            return { value: 0 };
+            return 1;
         });
         return { emotionChoices: emotionChoices };
+    },
+    onClick: function(emotionIndex, value) {
+        this.state.emotionChoices[emotionIndex] = value;
+        this.setState({ emotionChoices: this.state.emotionChoices });
+    },
+    submit: function() {
+        var result = emotionMap.map(function(emotion, index) {
+            return { emotion: emotion.emotion, value: this.state.emotionChoices[index] };
+        }.bind(this));
     },
     render: function() {
         var emotionNodes = emotionMap.map(function(emotion, index) {
@@ -93,7 +102,7 @@ var Post = React.createClass({
                 if (this.state.emotionChoices[index] == i) {
                     style.border = "1px solid white";
                 }
-                colorBoxes.push(<div key={i} style={style} className="box"></div>);
+                colorBoxes.push(<div key={i} style={style} onClick={this.onClick.bind(this, index, i)}className="box"></div>);
             }
             return (
                 <div key={emotion.emotion} className={emotion.emotion + " emotion"}>
@@ -104,7 +113,7 @@ var Post = React.createClass({
         return <div id="post">
                 <h2>create</h2>
                 {emotionNodes}
-                <button>post</button>
+                <button onClick={this.submit} >post</button>
             </div>
     }
 });

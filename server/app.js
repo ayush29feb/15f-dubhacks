@@ -9,6 +9,7 @@ var sequelize = new Sequelize("postgres://username:asdfasdf@localhost:5432/lift"
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var friends = require('./routes/friends');
+var friend = require('./routes/friend');
 var app = express();
 
 // view engine setup
@@ -26,6 +27,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/me', users);
 app.use('/friends', friends);
+app.use('/friend', friend);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');

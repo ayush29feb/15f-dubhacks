@@ -11,7 +11,7 @@ router.get('/connected', function(req, res, next) {
     checkAuthentication(req, res);
     // get the friends of the user
 	var myId = req.user;
-	sequelize.query("SELECT * from usersWHERE users.id IN ((SELECT u1 as id FROM connections where u2 = \'" + myId + "\' AND status = 'confirmed') UNION (SELECT u2 as id FROM connections WHERE u1 = \'" + myId + "\' AND status = 'confirmed'))", { type : sequelize.QueryTypes.SELECT })
+	sequelize.query("SELECT * from users WHERE users.id IN ((SELECT u1 as id FROM connections where u2 = \'" + myId + "\' AND status = 'confirmed') UNION (SELECT u2 as id FROM connections WHERE u1 = \'" + myId + "\' AND status = 'confirmed'))", { type : sequelize.QueryTypes.SELECT })
     .then(function(friends) {
 		res.send(friends);
 	});

@@ -22,6 +22,7 @@ router.route('/create')
 	})
 	.post(function(req,res,next) {
 		var newId = req.user;
+		console.log(req.body);
 		var userEmotion = req.body.data;
 		Status.create({userId: newId, data: userEmotion}).then(function(emotion) {
 			res.send(emotion);

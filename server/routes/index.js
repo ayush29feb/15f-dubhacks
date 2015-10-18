@@ -16,7 +16,7 @@ passport.deserializeUser(function(obj, done) {
 passport.use(new FacebookStrategy({
             clientID: FACEBOOK_APP_ID,
             clientSecret: FACEBOOK_APP_SECRET,
-            callbackURL: "http://52.89.113.127/auth/facebook/"
+            callbackURL: "http://52.89.113.127:3000/auth/facebook/"
       },
       function(accessToken, refreshToken, profile, done) {
           // asynchronous verification, for effect...
@@ -30,11 +30,18 @@ passport.use(new FacebookStrategy({
       }
 ));
 
+var options = {
+    scope: 'user_friends',
+    failureRedirect: '/login'
+};
 
-router.get('/auth/facebook', passport.authenticate('facebook', { failureRedirect : '/login'}),
+router.get('/auth/facebook', passport.authenticate('facebook', options),
         function(req, res) {
-            res.redirect('/')
+            console.log(req.user);
+            res.render('index', {title: req.query.code});
+            //res.redirect('/heheheheyoumadeit')
         });
+
 
 router.get('/logout', function(req, res){
     req.logout();
@@ -43,7 +50,8 @@ router.get('/logout', function(req, res){
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express'});
+    console.log(req.user);
+    res.render('index', { title: 'Express'});
 });
 
 

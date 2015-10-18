@@ -8,6 +8,8 @@ var Status = require('../models/Status');
 router.get('/', function(req, res, next) {
 	var newId =""+req.user.id;
 	User.find({
+	var newId = req.user;
+	User.findAll({
 		where: {
 			id: newId
 		}
@@ -21,7 +23,7 @@ router.route('/create')
 		res.send("Hello! You are on the creating endpoint. Please create an emotion");
 	})
 	.post(function(req,res,next) {
-		var newId = ""+ req.user.id;
+		var newId = req.user;
 		var userEmotion = req.body.data;
 		Status.create({userId: newId, data: userEmotion}).then(function(emotion) {
 			res.send(emotion);

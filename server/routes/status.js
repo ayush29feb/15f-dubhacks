@@ -4,10 +4,10 @@ var router = express.Router();
 //var User = require('../models/index');
 var S = require('sequelize');
 var sequelize = new S('postgres://postgres:asdfasdf@localhost:5432/lift');
-
+var Statuses = require('../models/Status');
 router.get('/', function(req, res, next){
-  
-  sequelize.query('SELECT users.name, users.profile_url,  statuses.* FROM users, statuses WHERE users.id = statuses.user_id AND statuses.user_id IN ((SELECT u1 AS id FROM connections where u2 = \'1\' AND status = \'confirmed\') UNION (SELECT u2 AS id FROM connections WHERE u1 = \'1\' AND status = \'confirmed\'));', { type : sequelize.QueryTypes.SELECT  })
+ var id = req.user.id; 
+  sequelize.query('SELECT users.name, users.profile_url,  statuses.* FROM users, statuses WHERE users.id = statuses.user_id AND statuses.user_id IN ((SELECT u1 AS id FROM connections where u2 = \''+  id +' \' AND status = \'confirmed\') UNION (SELECT u2 AS id FROM connections WHERE u1 = \''+  id +'\' AND status = \'confirmed\'));', { type : sequelize.QueryTypes.SELECT  })
 
   .then(function(post){ 
     if (post.length == 0){
@@ -18,7 +18,16 @@ router.get('/', function(req, res, next){
     }
    });
 
-
+router.post('/:post_id', function(req, res, next){
+	var id = req.params.post_id;
+	Statuses.find({ where: {title: id} }).on('success', function(project) {
+	  if (project) { // if the record exists in the db
+    		project.updateAttributes({
+    		  data: req.body.data
+    		}).success(function() {});
+ 	 }
+	})
+});
 
 //Statuses.findAll({
 //    where: {

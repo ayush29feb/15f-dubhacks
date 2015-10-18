@@ -14,4 +14,6 @@ Connection.sync({force: true}).then(function() {
     Connection.create({ u1: '2', u2: '3', status: 'pending'});
 });
 
-Status.sync({force: true});
+Status.sync({force: true}).then(function() {
+    Status.create({ userId: '1', data: '"{[]}'});
+});

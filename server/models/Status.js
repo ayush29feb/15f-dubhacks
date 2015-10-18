@@ -4,23 +4,22 @@ var User = require('./User');
 
 var Status = sequelize.define('status', {
     id : {
-	type: Sequelize.UUID,
-	field: 'id',
-	primaryKey : true
+        type: Sequelize.UUID,
+        primaryKey : true,
+        defaultValue: Sequelize.UUIDV4
     },
     userId : {
-	type: Sequelize.STRING,
-	field: 'user_id',
-	references : {
-	    model : User,
-	    key : 'id'
-	},
+        type: Sequelize.STRING,
+        field: 'user_id',
+        references : {
+            model : User,
+            key : 'id'
+        },
         allowNull : false
     },
     data : {
     	type: Sequelize.JSON,
-	field: 'data',
-	allowNull : false
+        allowNull : false
     }
 });
 

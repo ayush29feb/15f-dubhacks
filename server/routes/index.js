@@ -14,7 +14,7 @@ var Connection = require("../models/Connection");
 var BASE = "https://graph.facebook.com/"
 
 passport.serializeUser(function(user, done) {
-    done(null, user);
+    done(null, user.id);
 });
 
 passport.deserializeUser(function(obj, done) {
@@ -32,7 +32,6 @@ passport.use(new FacebookStrategy({
               // if user id is not in the db... then grab all friends and profile pics
               // as well as their own picture
 
-              var x = User.findById(profile.id);
               FB.setAccessToken(accessToken);
               User.findById(profile.id).then(function(user) {
                   if (user === null) {
@@ -88,6 +87,8 @@ router.get('/auth/facebook', passport.authenticate('facebook', options),
  * hitting the FB API.
  */
 router.get('/home', function(req, res) {
+    console.log(req.user);
+    console.log(req);
     res.render('index', {title: "success!"});
 });
 

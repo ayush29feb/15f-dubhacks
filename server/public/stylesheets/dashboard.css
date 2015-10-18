@@ -1,0 +1,69 @@
+@import url(https://fonts.googleapis.com/css?family=Raleway:400,700,600);
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Raleway'; }
+
+#feed {
+  position: absolute;
+  height: 100%;
+  width: 75%;
+  left: 0; }
+  #feed h1 {
+    border-bottom: 5px solid black;
+    padding: 28px 20px;
+    font-weight: 600;
+    margin: 0;
+    font-size: 3em; }
+
+#sidebar {
+  text-align: right;
+  color: white;
+  position: fixed;
+  height: 100%;
+  width: 25%;
+  right: 0;
+  border-left: 1px solid #aaa;
+  font-weight: 600; }
+  #sidebar .title {
+    font-size: 3em;
+    padding: 30px 15px;
+    margin: 0;
+    background-color: #174C74;
+    font-weight: 700; }
+  #sidebar ul {
+    padding: 0; }
+  #sidebar li {
+    list-style-type: none;
+    line-height: 60px;
+    padding-right: 15px;
+    font-size: 1.5em;
+    cursor: pointer; }
+    #sidebar li:hover {
+      color: #E94367; }
+  #sidebar li:hover {
+    color: #E94367; }
+  #sidebar #notifications {
+    background-color: #1E5C8B; }
+  #sidebar #friends {
+    background-color: #22679A; }
+  #sidebar #settings {
+    background-color: #408CB3; }
+
+#navigation {
+  background-color: #7FB2CD;
+  height: 100%; }
+
+#profile {
+  position: absolute;
+  height: 30%;
+  width: 100%;
+  bottom: 0;
+  border-top: 1px solid #C0D9AA;
+  background-color: #C0D9E6; }
+
+.status {
+  height: 100px;
+  margin-bottom: 10px; }
+
+/*# sourceMappingURL=dashboard.css.map */

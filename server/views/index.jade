@@ -1,5 +1,11 @@
 extends layout
 
+block scripts
+  script(src="https://fb.me/react-with-addons-0.14.0.js")
+  script(src="https://fb.me/react-dom-0.14.0.js")
+  link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css")
+  link(rel="stylesheet" href="/stylesheets/dashboard.css")
+
 block content
-  h1= title
-  p Welcome to #{title}
+  #dashboard
+  script(src="/js/dashboard.js")

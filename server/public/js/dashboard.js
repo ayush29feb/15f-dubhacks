@@ -300,10 +300,18 @@ var Post = React.createClass({
 var Feed = React.createClass({
     displayName: "Feed",
 
+    getInitialState: function getInitialState() {
+        return { feed: [] };
+    },
     componentDidMount: function componentDidMount() {
-        // ajax this.props.url (status)
+        $.get(API_URL + '/status', (function (feed) {
+            this.setState({ feed: feed });
+        }).bind(this));
     },
     render: function render() {
+        var statusNodes = this.state.feed.map(function (status) {
+            return React.createElement(Status, { user_id: status.user_id, user_name: status.name, picture: status.profile_url, date: status.createdAt, data: status.data });
+        });
         return React.createElement(
             "div",
             { id: "feed" },
@@ -312,7 +320,11 @@ var Feed = React.createClass({
                 null,
                 "feed"
             ),
-            React.createElement(Status, null)
+            React.createElement(
+                "div",
+                { className: "statusContainer" },
+                statusNodes
+            )
         );
     }
 });
@@ -327,14 +339,18 @@ var Status = React.createClass({
             React.createElement(
                 "div",
                 { className: "friend" },
-                React.createElement("img", { src: "http://www.plentyperfect.com/wp-content/uploads/2012/06/gravatar-300x300_thumb.jpg" }),
+                React.createElement("img", { src: this.props.picture, className: "img-circle img-responsive" }),
                 React.createElement(
-                    "p",
-                    null,
-                    "Daniel Fang"
+                    "span",
+                    { className: "userName" },
+                    this.props.user_name
                 )
             ),
-            React.createElement("div", { className: "summary" })
+            React.createElement(
+                "div",
+                { className: "summary" },
+                JSON.stringify(this.props.data)
+            )
         );
     }
 });

@@ -195,13 +195,21 @@ var Post = React.createClass({
 });
 
 var Feed = React.createClass({
+    getInitialState: function() {
+        return { feed: [] }
+    },
     componentDidMount: function() {
-        // ajax this.props.url (status)
+        $.get(API_URL + '/status', function(feed) {
+            this.setState({ feed : feed });
+        }.bind(this));
     },
     render: function() {
+        var statusNodes = this.state.feed.map(function(status) {
+            return <Status user_id={status.user_id} user_name={status.name} picture={status.profile_url} date={status.createdAt} data={status.data} />;
+        });
         return <div id="feed">
             <h1>feed</h1>
-            <Status />
+            <div className="statusContainer">{statusNodes}</div>
         </div>
     }
 });
@@ -210,10 +218,10 @@ var Status = React.createClass({
     render: function() {
         return <div className="status">
             <div className="friend">
-                <img src="http://www.plentyperfect.com/wp-content/uploads/2012/06/gravatar-300x300_thumb.jpg"/>
-                <p>Daniel Fang</p>
+                <img src={this.props.picture} className="img-circle img-responsive"/>
+                <span className="userName">{this.props.user_name}</span>
             </div>
-            <div className="summary"></div>
+            <div className="summary">{JSON.stringify(this.props.data)}</div>
         </div>
     }
 });

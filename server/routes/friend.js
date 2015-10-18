@@ -10,7 +10,7 @@ router.put('/:friend_id/request', function(req,res,next) {
 	var myId = req.user;
 	var otherId = req.params.friend_id;
 	console.log(otherId);
-	sequelize.query("UPDATE connections SET u1 = \'" + myId  + "\', u2 = \'" + otherId + "\', status = 'pending' WHERE (u1 = \'" + myId  + "\' AND u2 = \'" + otherId + "\') OR (u2 = \'" + myId  + "\' AND u1 =\'" + otherId + "\')", {type: sequelize.QueryTypes.UPDATE}).then(function(connection){
+	sequelize.query("UPDATE connections SET u2 = \'" + myId  + "\', u1 = \'" + otherId + "\', status = 'pending' WHERE (u1 = \'" + myId  + "\' AND u2 = \'" + otherId + "\') OR (u2 = \'" + myId  + "\' AND u1 =\'" + otherId + "\')", {type: sequelize.QueryTypes.UPDATE}).then(function(connection){
 		res.send(connection);
 	});
 });

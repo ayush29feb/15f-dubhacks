@@ -333,6 +333,7 @@ var Status = React.createClass({
     displayName: "Status",
 
     render: function render() {
+        console.log(this.props.data);
         return React.createElement(
             "div",
             { className: "status" },
@@ -349,7 +350,41 @@ var Status = React.createClass({
             React.createElement(
                 "div",
                 { className: "summary" },
-                JSON.stringify(this.props.data)
+                React.createElement(
+                    "span",
+                    { className: "emotionbox" },
+                    this.props.data[0].emotion,
+                    " ",
+                    this.props.data[0].value
+                ),
+                React.createElement(
+                    "span",
+                    { className: "emotionbox" },
+                    this.props.data[1].emotion,
+                    " ",
+                    this.props.data[1].value
+                ),
+                React.createElement(
+                    "span",
+                    { className: "emotionbox" },
+                    this.props.data[2].emotion,
+                    " ",
+                    this.props.data[2].value
+                ),
+                React.createElement(
+                    "span",
+                    { className: "emotionbox" },
+                    this.props.data[3].emotion,
+                    " ",
+                    this.props.data[3].value
+                ),
+                React.createElement(
+                    "span",
+                    { className: "emotionbox" },
+                    this.props.data[4].emotion,
+                    " ",
+                    this.props.data[4].value
+                )
             )
         );
     }

@@ -216,12 +216,19 @@ var Feed = React.createClass({
 
 var Status = React.createClass({
     render: function() {
+        console.log(this.props.data);
         return <div className="status">
             <div className="friend">
                 <img src={this.props.picture} className="img-circle img-responsive"/>
                 <span className="userName">{this.props.user_name}</span>
             </div>
-            <div className="summary">{JSON.stringify(this.props.data)}</div>
+            <div className="summary">
+                <span className="emotionbox">{this.props.data[0].emotion} {this.props.data[0].value}</span>
+                <span className="emotionbox">{this.props.data[1].emotion} {this.props.data[1].value}</span>
+                <span className="emotionbox">{this.props.data[2].emotion} {this.props.data[2].value}</span>
+                <span className="emotionbox">{this.props.data[3].emotion} {this.props.data[3].value}</span>
+                <span className="emotionbox">{this.props.data[4].emotion} {this.props.data[4].value}</span>
+            </div>
         </div>
     }
 });

@@ -92,6 +92,12 @@ body {
     vertical-align: middle;
     margin-left: 15px; }
 
+#friendlist {
+  color: #333;
+  text-align: left;
+  width: 80%;
+  margin: auto; }
+
 .status {
   height: 150px;
   margin: 15px 0; }
@@ -105,5 +111,10 @@ body {
     .status .friend img {
       height: 60%;
       margin-bottom: 8px; }
+
+#logout {
+  position: absolute;
+  bottom: 15px;
+  right: 15px; }
 
 /*# sourceMappingURL=dashboard.css.map */

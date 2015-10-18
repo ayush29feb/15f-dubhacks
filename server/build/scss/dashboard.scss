@@ -124,6 +124,13 @@ body {
     width: 80%;
 }
 
+#friendlist {
+    color: #333;
+    text-align: left;
+    width: 80%;
+    margin: auto;
+}
+
 .status {
     height: 150px;
     margin: 15px 0;
@@ -141,4 +148,9 @@ body {
             margin-bottom: 8px;
         }
     }
+}
+#logout {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
 }

@@ -7,7 +7,7 @@ var emotionMap = [
     { emotion: "bored", color: "102, 51, 153" },
 ];
 
-var API_URL = 'http://52.89.113.127:3000';
+var API_URL = 'http://52.89.113.127:5000';
 
 var Dashboard = React.createClass({
     render: function() {
@@ -70,6 +70,7 @@ var Navigation = React.createClass({
                 <li onClick={this.onClick.bind(this, "s")}  id="settings">settings</li>
                 <li onClick={this.onClick.bind(this, "c")} id="create-post">new status</li>
             </ul>
+            <a href="/logout"><p>Logout</p></a>
     </div>
     }
 });
@@ -78,7 +79,7 @@ var FriendList = React.createClass({
     getInitialState: function() {
         return { none: [], pending: [] };
     },
-    componentDidMount: function() {
+    refreshFriends: function() {
         $.get(API_URL + '/friends/disconnected', function(data) {
             this.setState({ none: data });
         }.bind(this));
@@ -87,37 +88,53 @@ var FriendList = React.createClass({
             this.setState({ pending: data });
         }.bind(this));
     },
+    componentDidMount: function() {
+        this.refreshFriends();
+    },
     accept: function(userId) {
-        $.put(API_URL + '/friend/' + userId + '/accept', function(data) {
+        console.log("accept: " + userId);
+        $.ajax({
+            url: API_URL + '/friend/' + userId + '/accept',
+            method: 'PUT'
+        }).done(function(data) {
             console.log(data);
-        });
-        $.put(API_URL + '/friend' + userId + '/request', function(data) {
-            console.log(data);
-        });
+            this.refreshFriends();
+        }.bind(this));
     },
     add: function(userId) {
-
+        console.log("add: " + userId);
+        $.ajax({
+            url: API_URL + '/friend/' + userId + '/request',
+            method: 'PUT'
+        }).done(function(data) {
+            console.log(data);
+            this.refreshFriends();
+        }.bind(this));
     },
     render: function() {
         var noneNodes = this.state.none.map(function(friend) {
             return <div className="friend">
                 <img src={friend.profile_url} />
                 <p>{friend.name}</p>
-                <div onClick={this.accept.bind(this, friend.id)} className="btn btn-primary">Accept</div>
+                <div onClick={this.add.bind(this, friend.id)} className="btn btn-primary">Send Request</div>
             </div>
-        });
-        var pendingNodes = this.state.none.map(function(friend) {
+        }.bind(this));
+        var pendingNodes = this.state.pending.map(function(friend) {
             return <div className="friend">
                 <img src={friend.profile_url} />
                 <p>{friend.name}</p>
-                <div className="btn btn-primary">Send request</div>
+                <div onClick={this.accept.bind(this, friend.id)} className="btn btn-primary">Accept Request</div>
             </div>
-        });
-        return <div>
-            <h2>Pending Requests</h2>
-            {noneNodes}
-            <h2>Suggested Friends</h2>
+        }.bind(this));
+        var pendingTitle  = pendingNodes.length > 0 ? <h2>Pending Requests</h2> : "";
+        var noneTitle = noneNodes.length > 0 ? <h2>Suggested Friends</h2> : "";
+        var emptyTitle = pendingTitle == "" && noneTitle == "" ? <h2>No pending friend requests or new connections!</h2> : "";
+        return <div id="friendlist">
+            {emptyTitle}
+            {pendingTitle}
             {pendingNodes}
+            {noneTitle}
+            {noneNodes}
         </div>
     }
 });

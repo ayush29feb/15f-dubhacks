@@ -3,7 +3,7 @@
 
 var emotionMap = [{ emotion: "excited", color: "135, 211, 124" }, { emotion: "happy", color: "253, 238, 0" }, { emotion: "angry", color: "242, 38, 19" }, { emotion: "stressed", color: "242, 121, 53" }, { emotion: "bored", color: "102, 51, 153" }];
 
-var API_URL = 'http://52.89.113.127:3000';
+var API_URL = 'http://52.89.113.127:5000';
 
 var Dashboard = React.createClass({
     displayName: "Dashboard",
@@ -112,6 +112,15 @@ var Navigation = React.createClass({
                     { onClick: this.onClick.bind(this, "c"), id: "create-post" },
                     "new status"
                 )
+            ),
+            React.createElement(
+                "a",
+                { href: "/logout" },
+                React.createElement(
+                    "p",
+                    null,
+                    "Logout"
+                )
             )
         );
     }
@@ -123,7 +132,7 @@ var FriendList = React.createClass({
     getInitialState: function getInitialState() {
         return { none: [], pending: [] };
     },
-    componentDidMount: function componentDidMount() {
+    refreshFriends: function refreshFriends() {
         $.get(API_URL + '/friends/disconnected', (function (data) {
             this.setState({ none: data });
         }).bind(this));
@@ -132,17 +141,48 @@ var FriendList = React.createClass({
             this.setState({ pending: data });
         }).bind(this));
     },
-    accept: function accept(userId) {
-        $.put(API_URL + '/friend/' + userId + '/accept', function (data) {
-            console.log(data);
-        });
-        $.put(API_URL + '/friend' + userId + '/request', function (data) {
-            console.log(data);
-        });
+    componentDidMount: function componentDidMount() {
+        this.refreshFriends();
     },
-    add: function add(userId) {},
+    accept: function accept(userId) {
+        console.log("accept: " + userId);
+        $.ajax({
+            url: API_URL + '/friend/' + userId + '/accept',
+            method: 'PUT'
+        }).done((function (data) {
+            console.log(data);
+            this.refreshFriends();
+        }).bind(this));
+    },
+    add: function add(userId) {
+        console.log("add: " + userId);
+        $.ajax({
+            url: API_URL + '/friend/' + userId + '/request',
+            method: 'PUT'
+        }).done((function (data) {
+            console.log(data);
+            this.refreshFriends();
+        }).bind(this));
+    },
     render: function render() {
-        var noneNodes = this.state.none.map(function (friend) {
+        var noneNodes = this.state.none.map((function (friend) {
+            return React.createElement(
+                "div",
+                { className: "friend" },
+                React.createElement("img", { src: friend.profile_url }),
+                React.createElement(
+                    "p",
+                    null,
+                    friend.name
+                ),
+                React.createElement(
+                    "div",
+                    { onClick: this.add.bind(this, friend.id), className: "btn btn-primary" },
+                    "Send Request"
+                )
+            );
+        }).bind(this));
+        var pendingNodes = this.state.pending.map((function (friend) {
             return React.createElement(
                 "div",
                 { className: "friend" },
@@ -155,42 +195,33 @@ var FriendList = React.createClass({
                 React.createElement(
                     "div",
                     { onClick: this.accept.bind(this, friend.id), className: "btn btn-primary" },
-                    "Accept"
+                    "Accept Request"
                 )
             );
-        });
-        var pendingNodes = this.state.none.map(function (friend) {
-            return React.createElement(
-                "div",
-                { className: "friend" },
-                React.createElement("img", { src: friend.profile_url }),
-                React.createElement(
-                    "p",
-                    null,
-                    friend.name
-                ),
-                React.createElement(
-                    "div",
-                    { className: "btn btn-primary" },
-                    "Send request"
-                )
-            );
-        });
+        }).bind(this));
+        var pendingTitle = pendingNodes.length > 0 ? React.createElement(
+            "h2",
+            null,
+            "Pending Requests"
+        ) : "";
+        var noneTitle = noneNodes.length > 0 ? React.createElement(
+            "h2",
+            null,
+            "Suggested Friends"
+        ) : "";
+        var emptyTitle = pendingTitle == "" && noneTitle == "" ? React.createElement(
+            "h2",
+            null,
+            "No pending friend requests or new connections!"
+        ) : "";
         return React.createElement(
             "div",
-            null,
-            React.createElement(
-                "h2",
-                null,
-                "Pending Requests"
-            ),
-            noneNodes,
-            React.createElement(
-                "h2",
-                null,
-                "Suggested Friends"
-            ),
-            pendingNodes
+            { id: "friendlist" },
+            emptyTitle,
+            pendingTitle,
+            pendingNodes,
+            noneTitle,
+            noneNodes
         );
     }
 });

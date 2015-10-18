@@ -115,7 +115,7 @@ var Navigation = React.createClass({
             ),
             React.createElement(
                 "a",
-                { href: "/logout" },
+                { id: "logout", href: "/logout" },
                 React.createElement(
                     "p",
                     null,

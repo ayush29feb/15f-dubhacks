@@ -70,7 +70,7 @@ var Navigation = React.createClass({
                 <li onClick={this.onClick.bind(this, "s")}  id="settings">settings</li>
                 <li onClick={this.onClick.bind(this, "c")} id="create-post">new status</li>
             </ul>
-            <a href="/logout"><p>Logout</p></a>
+            <a id="logout" href="/logout"><p>Logout</p></a>
     </div>
     }
 });

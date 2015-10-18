@@ -10,7 +10,7 @@ body {
   width: 75%;
   left: 0; }
   #feed h1 {
-    border-bottom: 4px solid black;
+    border-bottom: 2px solid black;
     padding: 28px 20px;
     font-weight: 600;
     margin: 0;
@@ -92,12 +92,6 @@ body {
     vertical-align: middle;
     margin-left: 15px; }
 
-#friendlist {
-  color: #333;
-  text-align: left;
-  width: 80%;
-  margin: auto; }
-
 .status {
   height: 150px;
   margin: 15px 0; }
@@ -111,6 +105,12 @@ body {
     .status .friend img {
       height: 60%;
       margin-bottom: 8px; }
+
+#friendlist {
+  color: #333;
+  text-align: left;
+  width: 80%;
+  margin: auto; }
 
 #logout {
   position: absolute;

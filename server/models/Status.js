@@ -1,5 +1,6 @@
 var Sequelize = require('sequelize');
 var sequelize = new Sequelize('postgres://postgres:asdfasdf@localhost:5432/lift');
+var User = require('./User');
 
 var Status = sequelize.define('status', {
     id : {
@@ -23,4 +24,4 @@ var Status = sequelize.define('status', {
     }
 });
 
-Status.sync({});
+module.exports = Status;

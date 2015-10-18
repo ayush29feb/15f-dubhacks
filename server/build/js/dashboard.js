@@ -75,16 +75,53 @@ var Navigation = React.createClass({
 });
 
 var FriendList = React.createClass({
+    getInitialState: function() {
+        return { none: [], pending: [] };
+    },
     componentDidMount: function() {
-        $.get(API_URL + '/friends', function(data) {
+        $.get(API_URL + '/friends/disconnected', function(data) {
+            this.setState({ none: data });
+        }.bind(this));
+
+        $.get(API_URL + '/friends/pending', function(data) {
+            this.setState({ pending: data });
+        }.bind(this));
+    },
+    accept: function(userId) {
+        $.put(API_URL + '/friend/' + userId + '/accept', function(data) {
             console.log(data);
         });
+        $.put(API_URL + '/friend' + userId + '/request', function(data) {
+            console.log(data);
+        });
+    },
+    add: function(userId) {
 
     },
     render: function() {
-        return <div>Friend</div>
+        var noneNodes = this.state.none.map(function(friend) {
+            return <div className="friend">
+                <img src={friend.profile_url} />
+                <p>{friend.name}</p>
+                <div onClick={this.accept.bind(this, friend.id)} className="btn btn-primary">Accept</div>
+            </div>
+        });
+        var pendingNodes = this.state.none.map(function(friend) {
+            return <div className="friend">
+                <img src={friend.profile_url} />
+                <p>{friend.name}</p>
+                <div className="btn btn-primary">Send request</div>
+            </div>
+        });
+        return <div>
+            <h2>Pending Requests</h2>
+            {noneNodes}
+            <h2>Suggested Friends</h2>
+            {pendingNodes}
+        </div>
     }
 });
+
 
 var Post = React.createClass({
     getInitialState: function() {

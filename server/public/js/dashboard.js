@@ -120,16 +120,77 @@ var Navigation = React.createClass({
 var FriendList = React.createClass({
     displayName: "FriendList",
 
+    getInitialState: function getInitialState() {
+        return { none: [], pending: [] };
+    },
     componentDidMount: function componentDidMount() {
-        $.get(API_URL + '/friends', function (data) {
+        $.get(API_URL + '/friends/disconnected', (function (data) {
+            this.setState({ none: data });
+        }).bind(this));
+
+        $.get(API_URL + '/friends/pending', (function (data) {
+            this.setState({ pending: data });
+        }).bind(this));
+    },
+    accept: function accept(userId) {
+        $.put(API_URL + '/friend/' + userId + '/accept', function (data) {
+            console.log(data);
+        });
+        $.put(API_URL + '/friend' + userId + '/request', function (data) {
             console.log(data);
         });
     },
+    add: function add(userId) {},
     render: function render() {
+        var noneNodes = this.state.none.map(function (friend) {
+            return React.createElement(
+                "div",
+                { className: "friend" },
+                React.createElement("img", { src: friend.profile_url }),
+                React.createElement(
+                    "p",
+                    null,
+                    friend.name
+                ),
+                React.createElement(
+                    "div",
+                    { onClick: this.accept.bind(this, friend.id), className: "btn btn-primary" },
+                    "Accept"
+                )
+            );
+        });
+        var pendingNodes = this.state.none.map(function (friend) {
+            return React.createElement(
+                "div",
+                { className: "friend" },
+                React.createElement("img", { src: friend.profile_url }),
+                React.createElement(
+                    "p",
+                    null,
+                    friend.name
+                ),
+                React.createElement(
+                    "div",
+                    { className: "btn btn-primary" },
+                    "Send request"
+                )
+            );
+        });
         return React.createElement(
             "div",
             null,
-            "Friend"
+            React.createElement(
+                "h2",
+                null,
+                "Pending Requests"
+            ),
+            noneNodes,
+            React.createElement(
+                "h2",
+                null,
+                "Suggested Friends"
+            ),
+            pendingNodes
         );
     }
 });

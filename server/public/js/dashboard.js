@@ -176,8 +176,8 @@ var Post = React.createClass({
             ),
             emotionNodes,
             React.createElement(
-                "button",
-                { onClick: this.submit },
+                "div",
+                { className: "btn btn-primary", onClick: this.submit },
                 "post"
             )
         );

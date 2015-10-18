@@ -1,0 +1,65 @@
+@import url(https://fonts.googleapis.com/css?family=Raleway:400,700,600);
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Raleway', sans-serif;
+    color: white;
+}
+
+#global-container {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+
+#title-container {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 300px;
+    height: 400px;
+    position: absolute;
+    font-size: 5em;
+    text-align: center;
+}
+
+#login {
+    font-size: .5em;
+}
+
+#stripes {
+    height: 100%;
+    position: relative;
+}
+
+#stripes > div {
+    height: 16.7%;
+}
+
+#s1 {
+    background-color: rgb(23, 76, 116);
+}
+
+#s2 {
+    background-color: rgb(30, 92, 139);
+}
+
+#s3 {
+    background-color: rgb(34, 103, 154);
+}
+
+#s4 {
+    background-color: rgb(64, 140, 179);
+}
+
+#s5 {
+    background-color: rgb(127, 178, 205);
+}
+
+#s6 {
+    background-color: rgb(192, 217, 230);
+}
+

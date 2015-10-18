@@ -113,7 +113,7 @@ var Post = React.createClass({
         return <div id="post">
                 <h2>create</h2>
                 {emotionNodes}
-                <button onClick={this.submit} >post</button>
+                <div className="btn btn-primary" onClick={this.submit} >post</div>
             </div>
     }
 });

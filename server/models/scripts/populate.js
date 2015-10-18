@@ -3,7 +3,7 @@ var Connection = require('../Connection');
 var Status = require('../Status');
 
 User.sync({force: true}).then(function() {
-    User.create({ id: '1', name: 'Ayush'});
+    User.create({ id: '12345', name: 'Ayush'});
     User.create({ id: '2', name: 'Vardhman'});
     User.create({ id: '3', name: 'Divye'});
 });

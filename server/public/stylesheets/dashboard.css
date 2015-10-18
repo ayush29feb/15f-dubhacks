@@ -1,119 +1,54 @@
-@import url(https://fonts.googleapis.com/css?family=Raleway:400,700,600);
-body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Raleway'; }
+/*
+Error: Invalid CSS after "...mily: 'Raleway'": expected ";", was ": sans-serif;"
+        on line 6 of build/scss/dashboard.scss
 
-#feed {
-  position: absolute;
-  height: 100%;
-  width: 75%;
-  left: 0; }
-  #feed h1 {
-    border-bottom: 4px solid black;
-    padding: 28px 20px;
-    font-weight: 600;
-    margin: 0;
-    font-size: 3em; }
+1: @import url(https://fonts.googleapis.com/css?family=Raleway:400,700,600);
+2: 
+3: body {
+4:     margin: 0;
+5:     padding: 0;
+6:     font-family: 'Raleway': sans-serif;
+7: }
+8: 
+9: #feed {
+10:     h1 {
+11:         border-bottom: 4px solid black;
 
-#sidebar {
-  text-align: right;
-  color: white;
-  position: fixed;
-  height: 100%;
-  width: 25%;
-  right: 0;
-  border-left: 1px solid #aaa;
-  font-weight: 600; }
-  #sidebar .title {
-    font-size: 3em;
-    padding: 30px 15px;
-    margin: 0;
-    background-color: #174C74;
-    font-weight: 700; }
-  #sidebar ul {
-    padding: 0; }
-  #sidebar li {
-    list-style-type: none;
-    line-height: 60px;
-    padding-right: 15px;
-    font-size: 1.5em;
-    cursor: pointer; }
-    #sidebar li:hover {
-      color: #E94367; }
-  #sidebar li:hover {
-    color: #E94367; }
-  #sidebar #notifications {
-    background-color: #1E5C8B; }
-  #sidebar #create-post {
-    background-color: #7FB2CD;
-    text-align: center;
-    position: absolute;
-    margin: auto;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 20px;
-    width: 100%;
-    font-size: 3em; }
-  #sidebar #friends {
-    background-color: #22679A; }
-  #sidebar #settings {
-    background-color: #408CB3; }
-
-#navigation {
-  height: 100%;
-  background-color: #7FB2CD; }
-  #navigation .close {
-    margin: 8px; }
-
-#profile {
-  position: absolute;
-  height: 250px;
-  width: 100%;
-  bottom: 0;
-  border-top: 1px solid #C0D9AA;
-  background-color: #C0D9E6; }
-  #profile img {
-    position: absolute;
-    width: 100px;
-    margin: 25px;
-    left: 0; }
-
-#post {
-  color: white;
-  margin: 30px auto;
-  text-align: left;
-  width: 80%; }
-  #post .box {
-    height: 30px;
-    width: 30px;
-    display: inline-block;
-    vertical-align: middle; }
-    #post .box:hover {
-      border: 1px solid white; }
-  #post h2 {
-    text-align: center;
-    margin-bottom: 30px; }
-  #post .emotion {
-    margin-bottom: 20px; }
-  #post .emotion-name {
-    vertical-align: middle;
-    margin-left: 15px; }
-
-.status {
-  height: 150px;
-  margin: 15px 0; }
-  .status .friend {
-    height: 100%;
-    padding: 15px;
-    width: 20%;
-    text-align: right;
-    font-size: 1.5em;
-    font-weight: 600; }
-    .status .friend img {
-      height: 60%;
-      margin-bottom: 8px; }
-
-/*# sourceMappingURL=dashboard.css.map */
+Backtrace:
+build/scss/dashboard.scss:6
+/var/lib/gems/1.9.1/gems/sass-3.4.19/lib/sass/scss/parser.rb:1163:in `expected'
+/var/lib/gems/1.9.1/gems/sass-3.4.19/lib/sass/scss/parser.rb:1097:in `expected'
+/var/lib/gems/1.9.1/gems/sass-3.4.19/lib/sass/scss/parser.rb:1092:in `tok!'
+/var/lib/gems/1.9.1/gems/sass-3.4.19/lib/sass/scss/parser.rb:757:in `block in try_declaration'
+/var/lib/gems/1.9.1/gems/sass-3.4.19/lib/sass/scss/parser.rb:1137:in `call'
+/var/lib/gems/1.9.1/gems/sass-3.4.19/lib/sass/scss/parser.rb:1137:in `rethrow'
+/var/lib/gems/1.9.1/gems/sass-3.4.19/lib/sass/scss/parser.rb:762:in `try_declaration'
+/var/lib/gems/1.9.1/gems/sass-3.4.19/lib/sass/scss/parser.rb:692:in `declaration_or_ruleset'
+/var/lib/gems/1.9.1/gems/sass-3.4.19/lib/sass/scss/parser.rb:657:in `block_child'
+/var/lib/gems/1.9.1/gems/sass-3.4.19/lib/sass/scss/parser.rb:649:in `block_contents'
+/var/lib/gems/1.9.1/gems/sass-3.4.19/lib/sass/scss/parser.rb:638:in `block'
+/var/lib/gems/1.9.1/gems/sass-3.4.19/lib/sass/scss/parser.rb:632:in `ruleset'
+/var/lib/gems/1.9.1/gems/sass-3.4.19/lib/sass/scss/parser.rb:656:in `block_child'
+/var/lib/gems/1.9.1/gems/sass-3.4.19/lib/sass/scss/parser.rb:649:in `block_contents'
+/var/lib/gems/1.9.1/gems/sass-3.4.19/lib/sass/scss/parser.rb:117:in `stylesheet'
+/var/lib/gems/1.9.1/gems/sass-3.4.19/lib/sass/scss/parser.rb:42:in `parse'
+/var/lib/gems/1.9.1/gems/sass-3.4.19/lib/sass/engine.rb:403:in `_to_tree'
+/var/lib/gems/1.9.1/gems/sass-3.4.19/lib/sass/engine.rb:378:in `_render_with_sourcemap'
+/var/lib/gems/1.9.1/gems/sass-3.4.19/lib/sass/engine.rb:295:in `render_with_sourcemap'
+/var/lib/gems/1.9.1/gems/sass-3.4.19/lib/sass/plugin/compiler.rb:490:in `update_stylesheet'
+/var/lib/gems/1.9.1/gems/sass-3.4.19/lib/sass/plugin/compiler.rb:215:in `block in update_stylesheets'
+/var/lib/gems/1.9.1/gems/sass-3.4.19/lib/sass/plugin/compiler.rb:209:in `each'
+/var/lib/gems/1.9.1/gems/sass-3.4.19/lib/sass/plugin/compiler.rb:209:in `update_stylesheets'
+/var/lib/gems/1.9.1/gems/sass-3.4.19/lib/sass/plugin/compiler.rb:470:in `on_file_changed'
+/var/lib/gems/1.9.1/gems/sass-3.4.19/lib/sass/plugin/compiler.rb:328:in `block in watch'
+/var/lib/gems/1.9.1/gems/sass-3.4.19/vendor/listen/lib/listen/listener.rb:252:in `call'
+/var/lib/gems/1.9.1/gems/sass-3.4.19/vendor/listen/lib/listen/listener.rb:252:in `on_change'
+/var/lib/gems/1.9.1/gems/sass-3.4.19/vendor/listen/lib/listen/listener.rb:290:in `block in initialize_adapter'
+/var/lib/gems/1.9.1/gems/sass-3.4.19/vendor/listen/lib/listen/adapters/polling.rb:48:in `call'
+/var/lib/gems/1.9.1/gems/sass-3.4.19/vendor/listen/lib/listen/adapters/polling.rb:48:in `poll_changed_directories'
+/var/lib/gems/1.9.1/gems/sass-3.4.19/vendor/listen/lib/listen/adapter.rb:299:in `block in start_poller'
+*/
+body:before {
+  white-space: pre;
+  font-family: monospace;
+  content: "Error: Invalid CSS after \"...mily: 'Raleway'\": expected \";\", was \": sans-serif;\"\A         on line 6 of build/scss/dashboard.scss\A \A 1: @import url(https://fonts.googleapis.com/css?family=Raleway:400,700,600);\A 2: \A 3: body {\A 4:     margin: 0;\A 5:     padding: 0;\A 6:     font-family: 'Raleway': sans-serif;\A 7: }\A 8: \A 9: #feed {\A 10:     h1 {\A 11:         border-bottom: 4px solid black;"; }

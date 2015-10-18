@@ -3,9 +3,10 @@ var router = express.Router();
 var Sequelize = require('sequelize');
 var sequelize = new Sequelize('postgres://postgres:asdfasdf@localhost:5432/lift');
 var User = require('../models/User');
+var Status = require('../models/Status');
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-	var newId = 5; //req.user.id
+	var newId = '5'; //req.user.id
 	User.findAll({
 		where: {
 			id: newId
@@ -17,9 +18,13 @@ router.get('/', function(req, res, next) {
 
 router.route('/create')
 	.get(function(req,res,next) {
-		res.send("Hello! You are creating something");
+		res.send("Hello! You are on the creating endpoint. Please create an emotion");
 	})
 	.post(function(req,res,next) {
-
+		var newId = '2';
+		var userEmotion = req.body.data;
+		Status.create({userId: newId, data: userEmotion}).then(function(emotion) {
+			res.send(emotion);
+		});
 	});
 module.exports = router;

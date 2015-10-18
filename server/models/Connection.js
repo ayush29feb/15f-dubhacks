@@ -1,31 +1,12 @@
 var Sequelize = require('sequelize');
 var sequelize = new Sequelize('postgres://postgres:asdfasdf@localhost:5432/lift');
-
-var User = sequelize.define('user', {
-    id: {
-        type: Sequelize.STRING,
-        field: 'id',
-        primaryKey: true
-    },
-    profileUrl: {
-        type: Sequelize.STRING(512),
-        field: 'profile_url',
-        allowNull: true,
-        validate: {
-            isUrl: true
-        }
-    },
-    name: {
-        type: Sequelize.STRING,
-        field: 'name',
-        allowNull: false
-    }
-});
+var User = require('./User');
 
 var Connection = sequelize.define('connection', {
     id: {
         type: Sequelize.UUID,
-        primaryKey: true
+        primaryKey: true,
+        defaultValue: Sequelize.UUIDV4
     },
     u1: {
         type: Sequelize.STRING,
@@ -49,5 +30,4 @@ var Connection = sequelize.define('connection', {
     }
 });
 
-User.sync({});
-Connection.sync({});
+module.exports = Connection;

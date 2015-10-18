@@ -4,19 +4,22 @@ var Sequelize = require('sequelize');
 var sequelize = new Sequelize('postgres://postgres:asdfasdf@localhost:5432/lift');
 var User = require('../models/User');
 var Status = require('../models/Status');
+var checkAuthentication = require('./util');
+
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-	var newId = req.user;
-	User.findAll({
-		where: {
-			id: newId
-		}
-        }).then(function(user) {
-		res.send(user);
-	})
+    checkAuthentication(req, res);
+    var newId = req.user;
+    User.findAll({ where: { id: newId } })
+    .then(function(user) {
+        res.send(user);
+    })
 });
 
 router.route('/create')
+    .all(function(req, res, next) {
+        checkAuthentication(req, res);
+    })
 	.get(function(req,res,next) {
 		res.send("Hello! You are on the creating endpoint. Please create an emotion");
 	})
@@ -28,4 +31,5 @@ router.route('/create')
 			res.send(emotion);
 		});
 	});
+
 module.exports = router;

@@ -5,8 +5,10 @@ var sequelize = new Sequelize('postgres://postgres:asdfasdf@localhost:5432/lift'
 var User = require('../models/User');
 var Status = require('../models/Status');
 var Connection = require('../models/Connection');
+var checkAuthentication = require('./util');
 
 router.put('/:friend_id/request', function(req,res,next) {
+    checkAuthentication(req, res);
 	var myId = req.user;
 	var otherId = req.params.friend_id;
 	console.log(otherId);
@@ -16,6 +18,7 @@ router.put('/:friend_id/request', function(req,res,next) {
 });
 
 router.put('/:friend_id/accept',function(req,res,next) {
+    checkAuthentication(req, res);
 	var myId = req.user;
 	var otherId = req.params.friend_id;
 	console.log(otherId);

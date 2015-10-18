@@ -9,6 +9,7 @@ var FACEBOOK_APP_ID = "957421080985378";
 var FACEBOOK_APP_SECRET = "0d53e9e2387f0d3462c53cf6b3556016";
 var User = require("../models/User");
 var Connection = require("../models/Connection");
+var checkAuthentication = require('./util');
 
 
 var BASE = "https://graph.facebook.com/"
@@ -87,22 +88,18 @@ router.get('/auth/facebook', passport.authenticate('facebook', options),
  * hitting the FB API.
  */
 router.get('/home', function(req, res) {
-    console.log(req.user);
-    console.log(req);
-    res.render('index', {title: "success!"});
+    checkAuthentication(req, res);
+    res.render('index', {});
 });
-
 
 router.get('/logout', function(req, res){
     req.logout();
     res.redirect('/');
 });
 
-/* GET home page. */
+/* GET login page. */
 router.get('/', function(req, res, next) {
-    console.log(req.user);
-    res.render('login', { title: 'Express'});
+    res.render('login', {});
 });
-
 
 module.exports = router;

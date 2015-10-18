@@ -13,6 +13,7 @@ var session = require('express-session');
 var passport = require('passport');
 var friends = require('./routes/friends');
 var statuses = require('./routes/status');
+var friend = require('./routes/friend');
 var app = express();
 
 // view engine setup
@@ -35,6 +36,7 @@ app.use('/me', users);
 app.use('/friends', friends);
 app.use('/users', users);
 app.use('/status', statuses);
+app.use('/friend', friend);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');

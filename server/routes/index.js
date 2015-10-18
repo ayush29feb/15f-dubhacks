@@ -65,15 +65,6 @@ function addNewUser(FB, profile) {
         for (friendIndex in data) {
             var friend = data[friendIndex];
             var friendUserId = friend.id;
-            User.findById(friendUserId).then(function(profile) {
-                if (profile === null) {
-                    var friendName = friend.name;
-                    FB.api('/me/?fields=picture', function(res) {
-                        var friendURL = res.picture.data.url;
-                        User.create({id: friendUserId, name: friendName, profileUrl: friendURL});
-                    });
-                }
-            });
             // Create initial connection
             Connection.create({u1: curUserId, u2: friendUserId, status: 'none'});
         }

@@ -29,6 +29,17 @@ router.post('/:post_id', function(req, res, next){
 	})
 });
 
+router.get('/:friend_id', function(req, res, next){
+        var id = req.params.friend_id;
+        Statuses.findAll({
+                where : {
+                        user_id: id
+                        }
+                })
+                .then(function(sfriend){
+                        res.send(sfriend);
+                })
+});
 //Statuses.findAll({
 //    where: {
 //      user_id: {

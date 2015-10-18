@@ -8,6 +8,7 @@ var router = express.Router();
 var FACEBOOK_APP_ID = "957421080985378";
 var FACEBOOK_APP_SECRET = "0d53e9e2387f0d3462c53cf6b3556016";
 var User = require("../models/User");
+var Connection = require("../models/Connection");
 
 
 var BASE = "https://graph.facebook.com/"
@@ -61,10 +62,11 @@ function addNewUser(FB, profile) {
 
     FB.api('/me/friends', function(res) {
         var data = res.data;
-        for (friend in data) {
-            User.findById(friend.id).then(function(profile) {
+        for (friendIndex in data) {
+            var friend = data[friendIndex];
+            var friendUserId = friend.id;
+            User.findById(friendUserId).then(function(profile) {
                 if (profile === null) {
-                    var friendUserId = friend.id;
                     var friendName = friend.name;
                     FB.api('/me/?fields=picture', function(res) {
                         var friendURL = res.picture.data.url;
@@ -72,6 +74,8 @@ function addNewUser(FB, profile) {
                     });
                 }
             });
+            // Create initial connection
+            Connection.create({u1: curUserId, u2: friendUserId, status: 'none'});
         }
     });
 }

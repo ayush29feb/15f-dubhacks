@@ -32,6 +32,9 @@ var Sidebar = React.createClass({
 var Profile = React.createClass({
     displayName: "Profile",
 
+    componentDidMount: function componentDidMount() {
+        // ajax /me
+    },
     render: function render() {
         return React.createElement(
             "div",
@@ -125,14 +128,22 @@ var Omnibox = React.createClass({
 var Post = React.createClass({
     displayName: "Post",
 
+    getInitialState: function getInitialState() {
+        var emotionChoices = emotionMap.map(function (emotion) {
+            return { value: 0 };
+        });
+        return { emotionChoices: emotionChoices };
+    },
     render: function render() {
-        var emotionNodes = emotionMap.map(function (emotion) {
+        var emotionNodes = emotionMap.map((function (emotion, index) {
             var colorBoxes = [];
             for (var i = 1; i < 6; i++) {
                 var style = {
                     backgroundColor: "rgba(" + emotion.color + "," + i * .16 + ")"
                 };
-                console.log(style);
+                if (this.state.emotionChoices[index] == i) {
+                    style.border = "1px solid white";
+                }
                 colorBoxes.push(React.createElement("div", { key: i, style: style, className: "box" }));
             }
             return React.createElement(
@@ -145,7 +156,7 @@ var Post = React.createClass({
                     emotion.emotion
                 )
             );
-        });
+        }).bind(this));
         return React.createElement(
             "div",
             { id: "post" },
@@ -154,7 +165,12 @@ var Post = React.createClass({
                 null,
                 "create"
             ),
-            emotionNodes
+            emotionNodes,
+            React.createElement(
+                "button",
+                null,
+                "post"
+            )
         );
     }
 });
@@ -162,6 +178,9 @@ var Post = React.createClass({
 var Feed = React.createClass({
     displayName: "Feed",
 
+    componentDidMount: function componentDidMount() {
+        // ajax this.props.url (status)
+    },
     render: function render() {
         return React.createElement(
             "div",

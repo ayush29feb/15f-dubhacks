@@ -81,16 +81,19 @@ body {
 
 #post {
   color: white;
+  margin: 30px auto;
   text-align: left;
-  margin: 50px 25px; }
+  width: 80%; }
   #post .box {
     height: 30px;
     width: 30px;
     display: inline-block;
     vertical-align: middle; }
+    #post .box:hover {
+      border: 1px solid white; }
   #post h2 {
     text-align: center;
-    margin-bottom: 20px; }
+    margin-bottom: 30px; }
   #post .emotion {
     margin-bottom: 20px; }
   #post .emotion-name {

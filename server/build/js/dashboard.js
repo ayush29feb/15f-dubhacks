@@ -26,6 +26,9 @@ var Sidebar = React.createClass({
 });
 
 var Profile = React.createClass({
+    componentDidMount: function() {
+        // ajax /me
+    },
     render: function() {
         return <div id="profile">
             <img src="http://www.plentyperfect.com/wp-content/uploads/2012/06/gravatar-300x300_thumb.jpg"/>
@@ -74,14 +77,22 @@ var Omnibox = React.createClass({
 });
 
 var Post = React.createClass({
+    getInitialState: function() {
+        var emotionChoices = emotionMap.map(function(emotion) {
+            return { value: 0 };
+        });
+        return { emotionChoices: emotionChoices };
+    },
     render: function() {
-        var emotionNodes = emotionMap.map(function(emotion) {
+        var emotionNodes = emotionMap.map(function(emotion, index) {
             var colorBoxes = [];
             for (var i = 1; i < 6; i++) {
                 var style = {
                     backgroundColor: "rgba(" + emotion.color + "," + (i * .16) + ")"
                 };
-                console.log(style);
+                if (this.state.emotionChoices[index] == i) {
+                    style.border = "1px solid white";
+                }
                 colorBoxes.push(<div key={i} style={style} className="box"></div>);
             }
             return (
@@ -89,15 +100,19 @@ var Post = React.createClass({
                     {colorBoxes}
                     <span className="emotion-name">{emotion.emotion}</span> 
                 </div>);
-        });
+        }.bind(this));
         return <div id="post">
                 <h2>create</h2>
                 {emotionNodes}
+                <button>post</button>
             </div>
     }
 });
 
 var Feed = React.createClass({
+    componentDidMount: function() {
+        // ajax this.props.url (status)
+    },
     render: function() {
         return <div id="feed">
             <h1>feed</h1>

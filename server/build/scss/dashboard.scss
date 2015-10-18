@@ -110,10 +110,13 @@ body {
         width: 30px;
         display: inline-block;
         vertical-align: middle;
+        &:hover {
+            border: 1px solid white;
+        }
     }
     h2 {
         text-align: center;
-        margin-bottom: 20px;
+        margin-bottom: 30px;
     }
     .emotion {
         margin-bottom: 20px;
@@ -123,8 +126,9 @@ body {
         margin-left: 15px;
     }
     color: white;
+    margin: 30px auto;
     text-align: left;
-    margin: 50px 25px;
+    width: 80%;
 }
 
 .status {

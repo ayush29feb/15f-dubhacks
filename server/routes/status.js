@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 //var Statuses = require('../models/status');
-var User = require('../models/index');
+//var User = require('../models/index');
 var S = require('sequelize');
 var sequelize = new S('postgres://postgres:asdfasdf@localhost:5432/lift');
 

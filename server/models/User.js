@@ -11,6 +11,9 @@ var User = sequelize.define('user', {
         type: Sequelize.STRING(512),
         field: 'profile_url',
         allowNull: true,
+        validate: {
+            isUrl: true
+        }
     },
     name: {
         type: Sequelize.STRING,
@@ -19,3 +22,4 @@ var User = sequelize.define('user', {
     }
 });
 
+module.exports = User;

@@ -6,8 +6,6 @@ var User = require('../models/User');
 var Status = require('../models/Status');
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-	var newId =""+req.user.id;
-	User.find({
 	var newId = req.user;
 	User.findAll({
 		where: {

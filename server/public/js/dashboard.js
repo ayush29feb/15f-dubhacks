@@ -1,6 +1,8 @@
 // React
 "use strict";
 
+var emotionMap = [{ emotion: "excited", color: "135, 211, 124" }, { emotion: "happy", color: "253, 238, 0" }, { emotion: "angry", color: "242, 38, 19" }, { emotion: "stressed", color: "242, 121, 53" }, { emotion: "bored", color: "102, 51, 153" }];
+
 var Dashboard = React.createClass({
     displayName: "Dashboard",
 
@@ -31,14 +33,47 @@ var Profile = React.createClass({
     displayName: "Profile",
 
     render: function render() {
-        return React.createElement("div", { id: "profile" });
+        return React.createElement(
+            "div",
+            { id: "profile" },
+            React.createElement("img", { src: "http://www.plentyperfect.com/wp-content/uploads/2012/06/gravatar-300x300_thumb.jpg" })
+        );
     }
 });
 
 var Navigation = React.createClass({
     displayName: "Navigation",
 
+    getInitialState: function getInitialState() {
+        return { expanded: '' };
+    },
+    onClick: function onClick(value) {
+        this.setState({ expanded: value });
+    },
     render: function render() {
+        if (this.state.expanded !== '') {
+            var module;
+            switch (this.state.expanded) {
+                case "c":
+                    module = React.createElement(Post, null);
+                    break;
+            };
+            return React.createElement(
+                "div",
+                { id: "navigation" },
+                React.createElement(
+                    "h1",
+                    { className: "title" },
+                    "lyte"
+                ),
+                React.createElement(
+                    "span",
+                    { onClick: this.onClick.bind(this, ""), className: "close" },
+                    "x"
+                ),
+                module
+            );
+        }
         return React.createElement(
             "div",
             { id: "navigation" },
@@ -52,23 +87,23 @@ var Navigation = React.createClass({
                 null,
                 React.createElement(
                     "li",
-                    { id: "notifications" },
+                    { onClick: this.onClick.bind(this, "n"), id: "notifications" },
                     "notifications"
                 ),
                 React.createElement(
                     "li",
-                    { id: "friends" },
+                    { onClick: this.onClick.bind(this, "f"), id: "friends" },
                     "friends"
                 ),
                 React.createElement(
                     "li",
-                    { id: "settings" },
+                    { onClick: this.onClick.bind(this, "s"), id: "settings" },
                     "settings"
                 ),
                 React.createElement(
                     "li",
-                    { id: "post" },
-                    "new status"
+                    { onClick: this.onClick.bind(this, "c"), id: "create-post" },
+                    "+new status"
                 )
             )
         );
@@ -87,6 +122,43 @@ var Omnibox = React.createClass({
     }
 });
 
+var Post = React.createClass({
+    displayName: "Post",
+
+    render: function render() {
+        var emotionNodes = emotionMap.map(function (emotion) {
+            var colorBoxes = [];
+            for (var i = 1; i < 6; i++) {
+                var style = {
+                    backgroundColor: "rgba(" + emotion.color + "," + i * .16 + ")"
+                };
+                console.log(style);
+                colorBoxes.push(React.createElement("div", { key: i, style: style, className: "box" }));
+            }
+            return React.createElement(
+                "div",
+                { key: emotion.emotion, className: emotion.emotion + " emotion" },
+                colorBoxes,
+                React.createElement(
+                    "span",
+                    { className: "emotion-name" },
+                    emotion.emotion
+                )
+            );
+        });
+        return React.createElement(
+            "div",
+            { id: "post" },
+            React.createElement(
+                "h2",
+                null,
+                "create"
+            ),
+            emotionNodes
+        );
+    }
+});
+
 var Feed = React.createClass({
     displayName: "Feed",
 
@@ -97,14 +169,8 @@ var Feed = React.createClass({
             React.createElement(
                 "h1",
                 null,
-                "news feed"
+                "feed"
             ),
-            React.createElement(Status, null),
-            React.createElement(Status, null),
-            React.createElement(Status, null),
-            React.createElement(Status, null),
-            React.createElement(Status, null),
-            React.createElement(Status, null),
             React.createElement(Status, null)
         );
     }
@@ -117,7 +183,17 @@ var Status = React.createClass({
         return React.createElement(
             "div",
             { className: "status" },
-            "Status"
+            React.createElement(
+                "div",
+                { className: "friend" },
+                React.createElement("img", { src: "http://www.plentyperfect.com/wp-content/uploads/2012/06/gravatar-300x300_thumb.jpg" }),
+                React.createElement(
+                    "p",
+                    null,
+                    "Daniel Fang"
+                )
+            ),
+            React.createElement("div", { className: "summary" })
         );
     }
 });

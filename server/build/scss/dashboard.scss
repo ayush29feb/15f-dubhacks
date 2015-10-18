@@ -8,7 +8,7 @@ body {
 
 #feed {
     h1 {
-        border-bottom: 5px solid black;
+        border-bottom: 4px solid black;
         padding: 28px 20px;
         font-weight: 600;
         margin: 0;
@@ -52,6 +52,20 @@ body {
         background-color: #1E5C8B;
     }
 
+    #create-post{
+        background-color: #7FB2CD;
+        text-align: center;
+        position: absolute;
+        margin: auto;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 20px;
+        width: 100%;
+        font-size: 3em;
+    }
+
     #friends {
         background-color: #22679A;
     }
@@ -71,20 +85,63 @@ body {
 }
 
 #navigation {
-    background-color: #7FB2CD;
     height: 100%;
+    background-color: #7FB2CD;
 }
 
 #profile {
     position: absolute;
-    height: 30%;
+    height: 250px;
     width: 100%;
     bottom: 0;
     border-top: 1px solid #C0D9AA;
     background-color: #C0D9E6;
+    img {
+        position: absolute;
+        width: 100px;
+        margin: 25px;
+        left: 0;
+    }
+}
+
+#post {
+    .box {
+        height: 30px;
+        width: 30px;
+        display: inline-block;
+        vertical-align: middle;
+    }
+    h2 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    .emotion {
+        margin-bottom: 20px;
+    }
+    .emotion-name{
+        vertical-align: middle;
+        margin-left: 15px;
+    }
+    color: white;
+    text-align: left;
+    margin: 50px 25px;
 }
 
 .status {
-    height: 100px;
-    margin-bottom: 10px;
+    height: 150px;
+    margin: 15px 0;
+
+    .friend {
+        height: 100%;
+        padding: 15px;
+        width: 20%;
+        text-align: right;
+        font-size: 1.5em;
+        font-weight: 600;
+
+        img {
+            height: 60%;
+            margin-bottom: 8px;
+        }
+    }
 }

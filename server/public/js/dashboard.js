@@ -212,7 +212,7 @@ var FriendList = React.createClass({
         var emptyTitle = pendingTitle == "" && noneTitle == "" ? React.createElement(
             "h2",
             null,
-            "No pending friend requests or new connections!"
+            "nothing new here"
         ) : "";
         return React.createElement(
             "div",
@@ -243,6 +243,18 @@ var Post = React.createClass({
         var result = emotionMap.map((function (emotion, index) {
             return { emotion: emotion.emotion, value: this.state.emotionChoices[index] };
         }).bind(this));
+        console.log(result);
+        $.ajax({
+            url: API_URL + '/me/create',
+            contentType: 'application/json',
+            crossDomain: true,
+            dataType: 'json',
+            type: 'POST',
+            cache: false,
+            data: JSON.stringify({ data: result })
+        }).done(function (data) {
+            console.log(data);
+        });
     },
     render: function render() {
         var emotionNodes = emotionMap.map((function (emotion, index) {

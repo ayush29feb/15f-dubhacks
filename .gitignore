@@ -6,3 +6,5 @@
 *.css.map
 
 node_modules
+
+.swp

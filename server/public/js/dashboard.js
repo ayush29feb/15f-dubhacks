@@ -3,6 +3,8 @@
 
 var emotionMap = [{ emotion: "excited", color: "135, 211, 124" }, { emotion: "happy", color: "253, 238, 0" }, { emotion: "angry", color: "242, 38, 19" }, { emotion: "stressed", color: "242, 121, 53" }, { emotion: "bored", color: "102, 51, 153" }];
 
+var API_URL = 'http://52.89.113.127:3000';
+
 var Dashboard = React.createClass({
     displayName: "Dashboard",
 
@@ -23,8 +25,7 @@ var Sidebar = React.createClass({
         return React.createElement(
             "div",
             { id: "sidebar" },
-            React.createElement(Navigation, null),
-            React.createElement(Profile, null)
+            React.createElement(Navigation, null)
         );
     }
 });
@@ -59,6 +60,9 @@ var Navigation = React.createClass({
             switch (this.state.expanded) {
                 case "c":
                     module = React.createElement(Post, null);
+                    break;
+                case "f":
+                    module = React.createElement(FriendList, null);
                     break;
             };
             return React.createElement(
@@ -106,16 +110,21 @@ var Navigation = React.createClass({
                 React.createElement(
                     "li",
                     { onClick: this.onClick.bind(this, "c"), id: "create-post" },
-                    "+new status"
+                    "new status"
                 )
             )
         );
     }
 });
 
-var Omnibox = React.createClass({
-    displayName: "Omnibox",
+var FriendList = React.createClass({
+    displayName: "FriendList",
 
+    componentDidMount: function componentDidMount() {
+        $.get(API_URL + '/friends', function (data) {
+            console.log(data);
+        });
+    },
     render: function render() {
         return React.createElement(
             "div",

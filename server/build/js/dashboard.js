@@ -7,6 +7,8 @@ var emotionMap = [
     { emotion: "bored", color: "102, 51, 153" },
 ];
 
+var API_URL = 'http://52.89.113.127:3000';
+
 var Dashboard = React.createClass({
     render: function() {
         return <div>
@@ -20,7 +22,6 @@ var Sidebar = React.createClass({
     render: function() {
         return <div id="sidebar">
             <Navigation />
-            <Profile />
         </div>
     }
 });
@@ -50,6 +51,9 @@ var Navigation = React.createClass({
                 case "c":
                     module = <Post />
                     break;
+                case "f":
+                    module = <FriendList />
+                    break
             };
             return <div id="navigation">
                 <h1 className="title">lyte</h1>
@@ -64,13 +68,19 @@ var Navigation = React.createClass({
                 <li onClick={this.onClick.bind(this, "n")}  id="notifications">notifications</li>
                 <li onClick={this.onClick.bind(this, "f")}  id="friends">friends</li>
                 <li onClick={this.onClick.bind(this, "s")}  id="settings">settings</li>
-                <li onClick={this.onClick.bind(this, "c")} id="create-post">+new status</li>
+                <li onClick={this.onClick.bind(this, "c")} id="create-post">new status</li>
             </ul>
     </div>
     }
 });
 
-var Omnibox = React.createClass({
+var FriendList = React.createClass({
+    componentDidMount: function() {
+        $.get(API_URL + '/friends', function(data) {
+            console.log(data);
+        });
+
+    },
     render: function() {
         return <div>Friend</div>
     }

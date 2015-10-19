@@ -3,7 +3,7 @@
 
 var emotionMap = [{ emotion: "excited", color: "135, 211, 124" }, { emotion: "happy", color: "253, 238, 0" }, { emotion: "angry", color: "242, 38, 19" }, { emotion: "stressed", color: "242, 121, 53" }, { emotion: "bored", color: "102, 51, 153" }];
 
-var API_URL = 'http://52.89.113.127:5000';
+var API_URL = 'http://lyteup.co';
 
 var Dashboard = React.createClass({
     displayName: "Dashboard",

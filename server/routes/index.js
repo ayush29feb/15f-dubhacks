@@ -25,7 +25,7 @@ passport.deserializeUser(function(obj, done) {
 passport.use(new FacebookStrategy({
             clientID: FACEBOOK_APP_ID,
             clientSecret: FACEBOOK_APP_SECRET,
-            callbackURL: "http://52.89.113.127:" + process.env.PORT  + "/auth/facebook/"
+            callbackURL: "http://lyteup.co/auth/facebook/"
       },
       function(accessToken, refreshToken, profile, done) {
           // asynchronous verification, for effect...

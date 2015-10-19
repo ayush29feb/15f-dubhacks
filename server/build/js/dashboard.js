@@ -7,7 +7,7 @@ var emotionMap = [
     { emotion: "bored", color: "102, 51, 153" },
 ];
 
-var API_URL = 'http://52.89.113.127:5000';
+var API_URL = 'http://lyteup.co';
 
 var Dashboard = React.createClass({
     render: function() {
